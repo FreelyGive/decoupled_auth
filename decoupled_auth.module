@@ -60,14 +60,9 @@ function decoupled_auth_form_user_form_alter(&$form, FormStateInterface $form_st
       }
 
       // Add an element validate to deal with the required state.
-      $form['account'][$element]['#element_validate'] = 'decoupled_auth_form_user_form_element_validate';
+      $form['account'][$element]['#element_validate'][] = 'decoupled_auth_form_user_form_element_validate';
     }
   }
-
-  // Insert a submit handler between ::submitForm and ::save so we can ensure
-  // name and pass get cleared out as necessary.
-  $pos = array_search('::save', $form['actions']['submit']['#submit']);
-  array_splice($form['actions']['submit']['#submit'], $pos, 0, 'decoupled_auth_form_user_form_submit');
 }
 
 /**
@@ -77,25 +72,16 @@ function decoupled_auth_form_user_form_alter(&$form, FormStateInterface $form_st
  */
 function decoupled_auth_form_user_form_element_validate($element, FormStateInterface $form_state, array $form) {
   // If we are not decoupling, process when things are required.
-  if (!empty($element['#original_required']) && !$form_state->getValue('decoupled_auth')) {
-    if (empty($element['#value'])) {
-      $form_state->setError($element, $this->t('@name field is required.', array('@name' => $element['#title'])));
+  if ($form_state->getValue('decoupled_auth')) {
+    if (!empty($element['#original_required'])) {
+      if (empty($element['#value'])) {
+        $form_state->setError($element, $this->t('@name field is required.', array('@name' => $element['#title'])));
+      }
     }
   }
-}
-
-/**
- * Form submission handler for user_form.
- *
- * @see decoupled_auth_form_user_form_alter()
- */
-function decoupled_auth_form_user_form_submit(array $form, FormStateInterface $form_state) {
-  // If we are decoupling, make sure name/pass are NULL.
-  if ($form_state->getValue('decoupled_auth')) {
-    /** @var \Drupal\user\UserInterface $entity */
-    $entity = $form_state->getFormObject()->getEntity();
-    $entity->mail = NULL;
-    $entity->pass = NULL;
+  // Otherwise clear our the name/pass values.
+  elseif (in_array($element['#name'], array('name', 'pass'))) {
+    $form_state->setValue($element['#parents'], NULL);
   }
 }
 
