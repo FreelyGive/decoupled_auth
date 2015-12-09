@@ -62,7 +62,7 @@ class DecoupledAuthUserNameRequired extends Constraint implements ConstraintVali
     /** @var \Drupal\Core\Field\FieldItemListInterface $items */
     /** @var \Drupal\user\UserInterface $account */
     $account = $items->getEntity();
-    $pass = $account->pass->value
+    $pass = $account->pass->value;
 
     if (!empty($pass) && (!isset($items) || $items->isEmpty())) {
       $this->context->addViolation($this->message, ['@name' => $account->getFieldDefinition('name')->getLabel()]);
