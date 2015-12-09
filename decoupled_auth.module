@@ -5,6 +5,8 @@
  * Allow decoupling of Drupal Authentication from Drupal Users.
  */
 
+use Drupal\Core\Form\FormStateInterface;
+
 /**
  * Implements hook_entity_type_build().
  */
@@ -13,4 +15,104 @@ function decoupled_auth_entity_type_build(array &$entity_types) {
   $user_type = $entity_types['user'];
   $user_type->setClass('Drupal\decoupled_auth\User');
   $user_type->setHandlerClass('storage_schema', 'Drupal\decoupled_auth\UserStorageSchema');
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter() for user_form.
+ */
+function decoupled_auth_form_user_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $user = Drupal::currentUser();
+
+  // If we don't have administer users, we shouldn't be able to manage the
+  // decoupled state of a user.
+  if (!$user->hasPermission('administer users')) {
+    return;
+  }
+
+  /** @var \Drupal\user\UserInterface $account */
+  $account = $form_state->getFormObject()->getEntity();
+
+  // Set a weight on mail so we can insert our checkbox in the right place.
+  $form['account']['mail']['#weight'] = -2;
+
+  // Add our 'has login details' checkbox.
+  $form['account']['decoupled_auth'] = [
+    '#type' => 'checkbox',
+    '#title' => t('This user has login details'),
+    '#description' => t('If un-checked, this user will not have a username and password.'),
+    '#default_value' => $account->isNew() || $account->getAccountName(),
+    '#weight' => -1,
+  ];
+
+  // If normally required, switch mail, name and pass to not required and then
+  // use form states and constraints to manage when it is required.
+  foreach (['mail', 'name', 'pass'] as $element) {
+    if (isset($form['account'][$element])) {
+      if (!empty($form['account'][$element]['#required'])) {
+        $form['account'][$element]['#required'] = FALSE;
+        $form['account'][$element]['#original_required'] = TRUE;
+        $form['account'][$element]['#states']['required'][':input[name="decoupled_auth"]'] = ['checked' => TRUE];
+      }
+
+      // If not mail, hide unless this user has login details.
+      if ($element != 'mail') {
+        $form['account'][$element]['#states']['visible'][':input[name="decoupled_auth"]'] = ['checked' => TRUE];
+      }
+
+      // Add an element validate to deal with the required state.
+      $form['account'][$element]['#element_validate'][] = 'decoupled_auth_form_user_form_element_validate';
+    }
+  }
+}
+
+/**
+ * Element validation handler for mail/name/pass on user_form.
+ *
+ * @see decoupled_auth_form_user_form_alter()
+ */
+function decoupled_auth_form_user_form_element_validate($element, FormStateInterface $form_state, array $form) {
+  // If we are not decoupling, process when things are required.
+  if ($form_state->getValue('decoupled_auth')) {
+    if (!empty($element['#original_required'])) {
+      if (empty($element['#value'])) {
+        $form_state->setError($element, $this->t('@name field is required.', array('@name' => $element['#title'])));
+      }
+    }
+  }
+  // Otherwise clear our the name/pass values.
+  elseif (in_array($element['#name'], array('name', 'pass'))) {
+    $form_state->setValue($element['#parents'], NULL);
+  }
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function decoupled_auth_element_info_alter(array &$types) {
+  if (isset($types['password_confirm'])) {
+    $types['password_confirm']['#process'][] = 'decoupled_auth_form_process_password_confirm';
+  }
+}
+
+/**
+ * Form element process handler for client-side password validation.
+ */
+function decoupled_auth_form_process_password_confirm($element) {
+  if (isset($element['#states'])) {
+    foreach (\Drupal\Core\Render\Element::children($element) as $key) {
+      $element[$key]['#states'] = $element['#states'];
+    }
+  }
+  return $element;
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for form_element.
+ */
+function decoupled_auth_preprocess_form_element(&$variables) {
+  if ($variables['element']['#type'] == 'password_confirm') {
+    if (isset($variables['element']['#attributes']['data-drupal-states'])) {
+      $variables['attributes']['data-drupal-states'] = $variables['element']['#attributes']['data-drupal-states'];
+    }
+  }
 }
