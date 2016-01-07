@@ -23,6 +23,10 @@ env:
 
     # Configuration variables.
     - DRUPAL_TI_MODULE_NAME="decoupled_auth"
+    #- DRUPAL_TI_SIMPLETEST_GROUP="user"
+    - DRUPAL_TI_PULL_SIMPLETEST_GROUP="decoupled_auth"
+    - DRUPAL_TI_NON_PULL_SIMPLETEST_GROUP="user"
+    - DRUPAL_TI_NON_PULL_SIMPLETEST_GROUP="--all"
 
     # Not sure what simpletest group we are using yet.
     #- DRUPAL_TI_SIMPLETEST_GROUP="Decoupled Auth"
@@ -44,7 +48,7 @@ env:
     - DRUPAL_TI_WEBSERVER_PORT="8080"
 
     # Simpletest specific commandline arguments, the DRUPAL_TI_SIMPLETEST_GROUP is appended at the end.
-    - DRUPAL_TI_SIMPLETEST_ARGS="--verbose --color --concurrency 4 --url $DRUPAL_TI_WEBSERVER_URL:$DRUPAL_TI_WEBSERVER_PORT --module user"
+    - DRUPAL_TI_SIMPLETEST_ARGS="--verbose --color --concurrency 4 --url $DRUPAL_TI_WEBSERVER_URL:$DRUPAL_TI_WEBSERVER_PORT"
     - SIMPLETEST_BASE_URL="http://127.0.0.1:8080"
 
     # Behat specific variables.

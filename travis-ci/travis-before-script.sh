@@ -13,5 +13,6 @@ drupal_ti_ensure_module_linked
 cd $DRUPAL_TI_DRUPAL_DIR
 git apply -v $DRUPAL_TI_DRUPAL_DIR/modules/decoupled_auth/travis-ci/decoupled_auth_user_modules_installed.patch
 
-# Enable main module and submodules.
-drush en -y decoupled_auth
+# Allow different simpletests to be run for pull requests by drupal_ti
+cd ~/.composer/vendor/lionsad/drupal_ti
+git apply -v $DRUPAL_TI_DRUPAL_DIR/modules/decoupled_auth/travis-ci/drupal_ti_pull_simpletest.patch
