@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.profile.individual.field_crm_address
+    - field.field.profile.individual.field_crm_dob
+    - field.field.profile.individual.field_crm_email
+    - field.field.profile.individual.field_crm_gender
+    - field.field.profile.individual.field_crm_name
+    - profile.type.individual
+id: profile.individual.default
+targetEntityType: profile
+bundle: individual
+mode: default
+content: {  }
+hidden:
+  field_crm_address: true
+  field_crm_dob: true
+  field_crm_email: true
+  field_crm_gender: true
+  field_crm_name: true

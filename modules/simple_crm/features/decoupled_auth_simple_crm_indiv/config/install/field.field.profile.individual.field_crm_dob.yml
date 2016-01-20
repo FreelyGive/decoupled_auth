@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.profile.field_crm_dob
+    - profile.type.individual
+  module:
+    - datetime
+_core:
+  default_config_hash: xqpDrq34P_1dqkF70Fc2FuwyvmdHnAzgQEQPLZ0l-yc
+id: profile.individual.field_crm_dob
+field_name: field_crm_dob
+entity_type: profile
+bundle: individual
+label: 'Date of Birth'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

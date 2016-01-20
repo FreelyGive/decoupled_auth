@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - profile
+_core:
+  default_config_hash: GwvfsDqp6_gNqsKhBbsrLI-B0hNcwV42WIwFLfCZ_08
+id: profile.field_crm_name
+field_name: field_crm_name
+entity_type: profile
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

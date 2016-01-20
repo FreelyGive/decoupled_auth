@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.profile.field_crm_gender
+    - profile.type.individual
+  module:
+    - options
+_core:
+  default_config_hash: iPSv0QVD_2AWzCKaoShytz9q3G7bMgURT60M5Qfr6M4
+id: profile.individual.field_crm_gender
+field_name: field_crm_gender
+entity_type: profile
+bundle: individual
+label: Gender
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

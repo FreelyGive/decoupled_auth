@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - address
+    - profile
+_core:
+  default_config_hash: 56AvzknBdhOCUa1mf46H_XSaZrh-Tb9ryn9zDquCkmI
+id: profile.field_crm_address
+field_name: field_crm_address
+entity_type: profile
+type: address
+settings: {  }
+module: address
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

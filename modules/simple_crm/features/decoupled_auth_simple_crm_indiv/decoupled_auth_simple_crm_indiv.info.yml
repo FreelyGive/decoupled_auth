@@ -1,0 +1,23 @@
+name: 'Simple Crm Individual'
+description: 'Default configuration for Simple Crm Individual CRM user.'
+type: module
+core: 8.x
+dependencies:
+  - decoupled_auth_simple_crm
+version: 8.x-1.x
+features:
+  required:
+    - core.entity_form_display.profile.individual.default
+    - core.entity_view_display.profile.individual.default
+    - field.field.profile.individual.field_crm_address
+    - field.field.profile.individual.field_crm_dob
+    - field.field.profile.individual.field_crm_email
+    - field.field.profile.individual.field_crm_gender
+    - field.field.profile.individual.field_crm_name
+    - field.storage.profile.field_crm_address
+    - field.storage.profile.field_crm_dob
+    - field.storage.profile.field_crm_email
+    - field.storage.profile.field_crm_gender
+    - field.storage.profile.field_crm_name
+    - profile.type.individual
+    - user.role.individual

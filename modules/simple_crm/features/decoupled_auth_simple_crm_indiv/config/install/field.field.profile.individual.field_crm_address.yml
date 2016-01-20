@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.profile.field_crm_address
+    - profile.type.individual
+  module:
+    - address
+_core:
+  default_config_hash: BvVHX3klwFDvDH7FnjNon2hFTbEHOobdFpmaUjx5NPk
+id: profile.individual.field_crm_address
+field_name: field_crm_address
+entity_type: profile
+bundle: individual
+label: Address
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  available_countries:
+    GB: GB
+    US: US
+  fields:
+    administrativeArea: administrativeArea
+    locality: locality
+    dependentLocality: dependentLocality
+    postalCode: postalCode
+    sortingCode: sortingCode
+    addressLine1: addressLine1
+    addressLine2: addressLine2
+    organization: '0'
+    recipient: '0'
+  langcode_override: ''
+field_type: address

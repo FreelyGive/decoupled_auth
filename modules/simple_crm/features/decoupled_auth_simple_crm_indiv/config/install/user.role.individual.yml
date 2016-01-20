@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: IehpRSjsLBzgjXs0aWTgXDMuZ-vy4vgLSZKO6TKTOZY
+id: individual
+label: Individual
+weight: 3
+is_admin: null
+permissions: {  }

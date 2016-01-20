@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.profile.field_crm_email
+    - profile.type.individual
+_core:
+  default_config_hash: WK4GLVjKQ_LXTrw202zY2v81qNLH1zeWMa4x8vSUWnA
+id: profile.individual.field_crm_email
+field_name: field_crm_email
+entity_type: profile
+bundle: individual
+label: Email
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

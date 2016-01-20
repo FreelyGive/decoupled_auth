@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.profile.field_crm_name
+    - profile.type.individual
+_core:
+  default_config_hash: nOvlk62JiMXeH1mQ39mq1QWdjRj9ftJzRsOhVQbYHu4
+id: profile.individual.field_crm_name
+field_name: field_crm_name
+entity_type: profile
+bundle: individual
+label: Name
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

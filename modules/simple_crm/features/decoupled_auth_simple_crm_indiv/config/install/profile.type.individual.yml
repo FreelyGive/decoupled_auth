@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: gcYi6ttSHlURRz9UlacrjQXMvTZLXY_W7u3qgSqj1BQ
+id: individual
+label: Individual
+registration: true
+multiple: false
+roles:
+  individual: individual
+weight: 0

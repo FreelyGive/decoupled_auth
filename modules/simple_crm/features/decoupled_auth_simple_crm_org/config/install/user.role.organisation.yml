@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Zu4jHp06YvmxsTs1YfROj-ZPYFBdB_NsATcUfLCkoCI
+id: organisation
+label: Organisation
+weight: 4
+is_admin: null
+permissions: {  }

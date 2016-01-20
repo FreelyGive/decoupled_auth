@@ -1,0 +1,20 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the simple crm individual users.
+ */
+
+use Drupal\user\RoleInterface;
+
+/**
+ * Implements hook_install().
+ */
+function decoupled_auth_simple_crm_indiv_install() {
+  // Enable profile permissions for registered users.
+  user_role_grant_permissions(RoleInterface::AUTHENTICATED_ID, array(
+    'add own individual profile',
+    'view own individual profile',
+    'edit own individual profile',
+    'delete own individual profile',
+  ));
+}

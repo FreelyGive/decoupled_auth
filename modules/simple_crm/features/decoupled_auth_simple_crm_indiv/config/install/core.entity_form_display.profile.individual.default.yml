@@ -1,0 +1,51 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.profile.individual.field_crm_address
+    - field.field.profile.individual.field_crm_dob
+    - field.field.profile.individual.field_crm_email
+    - field.field.profile.individual.field_crm_gender
+    - field.field.profile.individual.field_crm_name
+    - profile.type.individual
+  module:
+    - address
+    - datetime
+id: profile.individual.default
+targetEntityType: profile
+bundle: individual
+mode: default
+content:
+  field_crm_address:
+    type: address_default
+    weight: 2
+    settings:
+      default_country: null
+    third_party_settings: {  }
+  field_crm_dob:
+    type: datetime_datelist
+    weight: 3
+    settings:
+      increment: 15
+      date_order: YMD
+      time_type: '24'
+    third_party_settings: {  }
+  field_crm_email:
+    type: email_default
+    weight: 1
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_crm_gender:
+    type: options_select
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+  field_crm_name:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }
