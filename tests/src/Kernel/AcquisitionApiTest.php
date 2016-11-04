@@ -317,4 +317,98 @@ class AcquisitionApiTest extends KernelTestBase {
     $this->assertEquals($acquisition::FAIL_NO_MATCHES, $acquisition->getFailCode(), 'Correctly found no matches with a specifc query alter.');
   }
 
+  /**
+   * Tests AcquisitionServiceInterface::BEHAVIOR_INCLUDE_PROTECTED_ROLES.
+   *
+   * @covers ::findMatch
+   */
+  public function testProtectedRoles() {
+    /** @var \Drupal\decoupled_auth\AcquisitionServiceInterface $acquisition */
+    $acquisition = $this->container->get('decoupled_auth.acquisition');
+
+    $user = $this->createUser();
+    $admin_user = $this->createUser();
+    $this->createAdminRole('administrator');
+    $admin_user->addRole('administrator');
+    $admin_user->save();
+
+    $values = [
+      'user' => ['mail' => $user->getEmail()],
+      'admin_user' => ['mail' => $admin_user->getEmail()],
+    ];
+
+    // Default config - administrator protected.
+    // Expected to acquire user and not admin user.
+    $context = [
+      'behavior' => AcquisitionServiceInterface::BEHAVIOR_FIRST,
+    ];
+
+    $acquired = [];
+    foreach ($values as $key => $value) {
+      $acquired[$key] = $acquisition->acquire($value, $context);
+    }
+
+    if (!$acquired['user']) {
+      $this->fail('Failed to acquire user.');
+    }
+    else {
+      $this->assertEquals($user->id(), $acquired['user']->id(), 'Successfully acquired correct user.');
+    }
+    $this->assertFalse($acquired['admin_user']);
+
+
+    // Default config + BEHAVIOR_INCLUDE_PROTECTED_ROLES behavior.
+    // Expected to acquire user and admin user.
+    $context = [
+      'behavior' => AcquisitionServiceInterface::BEHAVIOR_FIRST | AcquisitionServiceInterface::BEHAVIOR_INCLUDE_PROTECTED_ROLES,
+    ];
+
+    $acquired = [];
+    foreach ($values as $key => $value) {
+      $acquired[$key] = $acquisition->acquire($value, $context);
+    }
+
+    if (!$acquired['user']) {
+      $this->fail('Failed to acquire user.');
+    }
+    else {
+      $this->assertEquals($user->id(), $acquired['user']->id(), 'Successfully acquired correct user.');
+    }
+    if (!$acquired['admin_user']) {
+      $this->fail('Failed to acquire admin user.');
+    }
+    else {
+      $this->assertEquals($admin_user->id(), $acquired['admin_user']->id(), 'Successfully acquired correct user.');
+    }
+
+    // Empty config - no protected roles.
+    // Expected to acquire user and admin user.
+    $context = [
+      'behavior' => AcquisitionServiceInterface::BEHAVIOR_FIRST,
+    ];
+
+    // Remove administrator role from protected roles.
+    $settings = \Drupal::configFactory()->getEditable('decoupled_auth.settings');
+    $settings->set('acquisitions.protected_roles', []);
+    $settings->save();
+
+    $acquired = [];
+    foreach ($values as $key => $value) {
+      $acquired[$key] = $acquisition->acquire($value, $context);
+    }
+
+    if (!$acquired['user']) {
+      $this->fail('Failed to acquire user.');
+    }
+    else {
+      $this->assertEquals($user->id(), $acquired['user']->id(), 'Successfully acquired correct user.');
+    }
+    if (!$acquired['admin_user']) {
+      $this->fail('Failed to acquire admin user.');
+    }
+    else {
+      $this->assertEquals($admin_user->id(), $acquired['admin_user']->id(), 'Successfully acquired correct user.');
+    }
+  }
+
 }

@@ -52,13 +52,21 @@ class AcquisitionService implements AcquisitionServiceInterface {
   protected $eventDispatcher;
 
   /**
+   * The decoupled auth settings.
+   *
+   * @var \Drupal\Core\Config\Config
+   */
+  protected $settings;
+
+  /**
    * {@inheritdoc}
    */
   public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entity_type_manager, EventDispatcherInterface $event_dispatcher) {
     $this->userStorage = $entity_type_manager->getStorage('user');
     $this->eventDispatcher = $event_dispatcher;
+    $this->settings = $config_factory->get('decoupled_auth.settings');
 
-    if ($config_factory->get('decoupled_auth.settings')->get('acquisitions.behavior_first')) {
+    if ($this->settings->get('acquisitions.behavior_first')) {
       $this->context['behavior'] = $this->context['behavior'] | self::BEHAVIOR_FIRST;
     }
   }
@@ -169,6 +177,19 @@ class AcquisitionService implements AcquisitionServiceInterface {
     // included.
     if ($context['behavior'] & self::BEHAVIOR_PREFER_COUPLED) {
       $query->exists('name');
+    }
+
+    // If we have the don't have the include protected roles behaviour, ensure
+    // protected roles are excluded.
+    if (!($context['behavior'] & self::BEHAVIOR_INCLUDE_PROTECTED_ROLES)) {
+      $protected_roles = $this->settings->get('acquisitions.protected_roles');
+      // Must have at least one protected role.
+      if (!empty($protected_roles)) {
+        $or = $query->orConditionGroup();
+        $or->condition('roles', $protected_roles, 'NOT IN');
+        $or->notExists('roles');
+        $query->condition($or);
+      }
     }
 
     // If we are set to take the first, we don't need to return more than one.

@@ -73,6 +73,16 @@ class DecoupledAuthSettingsForm extends ConfigFormBase {
       '#states' => ['visible' => ['input[name="acquisitions[registration]"' => ['value' => '1']]],
     ];
 
+    $roles = array_map(array('\Drupal\Component\Utility\Html', 'escape'), user_role_names(TRUE));
+    $form['acquisitions']['protected_roles'] = [
+      '#type' => 'select',
+      '#multiple' => TRUE,
+      '#title' => $this->t('Protected roles.'),
+      '#description' => $this->t('User roles that should not be acquirable by default.'),
+      '#default_value' => !empty($config->get('acquisitions.protected_roles')) ? $config->get('acquisitions.protected_roles') : [],
+      '#options' => $roles
+    ];
+
     $form['unique_emails'] = [
       '#type' => 'fieldset',
       '#title' => $this->t('Unique emails'),
@@ -124,6 +134,7 @@ class DecoupledAuthSettingsForm extends ConfigFormBase {
       ->set('acquisitions.behavior_first', $form_state->getValue(['acquisitions','behavior_first']))
       ->set('acquisitions.registration', $form_state->getValue(['acquisitions','registration']))
       ->set('acquisitions.registration_notice_demote', $form_state->getValue(['acquisitions','registration_notice_demote']))
+      ->set('acquisitions.protected_roles', $form_state->getValue(['acquisitions','protected_roles']))
       ->set('unique_emails.mode', $form_state->getValue(['unique_emails','mode']))
       ->set('unique_emails.roles', $form_state->getValue(['unique_emails','roles']))
       ->save();

@@ -254,3 +254,12 @@ function decoupled_auth_update_8001() {
     // batched.
   }
 }
+
+/**
+ * Add the protected roles setting.
+ */
+function decoupled_auth_update_8002() {
+  $settings = Drupal::configFactory()->getEditable('decoupled_auth.settings');
+  $settings->set('acquisitions.protected_roles', ['administrator']);
+  $settings->save();
+}

@@ -33,6 +33,12 @@ interface AcquisitionServiceInterface {
   const BEHAVIOR_PREFER_COUPLED = 0x4;
 
   /**
+   * Behavior bit flag to indicate we should include users with protected roles
+   * in acquisition.
+   */
+  const BEHAVIOR_INCLUDE_PROTECTED_ROLES = 0x8;
+
+  /**
    * Failure code for no values to acquire on.
    */
   const FAIL_NO_VALUES = 1;
