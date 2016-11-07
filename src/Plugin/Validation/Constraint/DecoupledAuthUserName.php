@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\decoupled_auth\Plugin\Validation\Constraint\DecoupledAuthUserName.
- */
-
 namespace Drupal\decoupled_auth\Plugin\Validation\Constraint;
 
 use Drupal\user\Plugin\Validation\Constraint\UserNameConstraint;

@@ -1,40 +1,40 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\decoupled_auth\AcquisitionService
- */
-
 namespace Drupal\decoupled_auth;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
+/**
+ * Provides an interface defining an acquisition service.
+ */
 interface AcquisitionServiceInterface {
 
   /**
-   * Behavior bit flag to indicate we should acquire the first user if there are
-   * multiple potential matches.
+   * Behavior bit flag to indicate we should acquire the first user.
+   *
+   * Applies if there are multiple potential matches.
    */
   const BEHAVIOR_FIRST = 0x1;
 
   /**
-   * Behavior bit flag to indicate we should create a new user if there is no
-   * match.
+   * Behavior bit flag to indicate we should create a new user.
+   *
+   * Applies if there is no match.
    */
   const BEHAVIOR_CREATE = 0x2;
 
   /**
-   * Behavior bit flag to indicate we would prefer to have a coupled user (i.e.
-   * has authentication details). Note this conflicts with $values['name'] and
-   * may end with no results.
+   * Behavior bit flag to indicate we would prefer to have a coupled user.
+   *
+   * A coupled user is one that has authentication details. Note this
+   * conflicts with $values['name'] and may end with no results.
    */
   const BEHAVIOR_PREFER_COUPLED = 0x4;
 
   /**
-   * Behavior bit flag to indicate we should include users with protected roles
-   * in acquisition.
+   * Behavior bit flag to indicate we should include users with protected roles.
    */
   const BEHAVIOR_INCLUDE_PROTECTED_ROLES = 0x8;
 
@@ -87,7 +87,7 @@ interface AcquisitionServiceInterface {
    * @param string $method
    *   Optionally pass a variable to be filled with the acquisition method.
    *
-   * @return \Drupal\decoupled_auth\DecoupledAuthUserInterface|NULL
+   * @return \Drupal\decoupled_auth\DecoupledAuthUserInterface|null
    *   The acquired or newly created user or NULL on a failure.
    */
   public function acquire(array $values, array $context = NULL, &$method = NULL);
@@ -95,7 +95,7 @@ interface AcquisitionServiceInterface {
   /**
    * Return the failure code, if any, from the last operation.
    *
-   * @return int|NULL
+   * @return int|null
    *   One of the \Drupal\decoupled_auth\AcquisitionServiceInterface::FAIL_*
    *   constants, or NULL if there is no failure code.
    */

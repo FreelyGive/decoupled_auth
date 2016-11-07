@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\decoupled_auth\Kernel\AcquisitionApiTest.
- */
-
 namespace Drupal\Tests\decoupled_auth\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
@@ -264,7 +259,7 @@ class AcquisitionApiTest extends KernelTestBase {
   /**
    * Test event subscribers.
    *
-   * @see \Drupal\decoupled_auth_event_test\EventSubscriber\DecoupledAuthEventTestSubscriber.
+   * @see \Drupal\decoupled_auth_event_test\EventSubscriber\DecoupledAuthEventTestSubscriber
    *
    * @covers ::acquire
    */
@@ -355,7 +350,6 @@ class AcquisitionApiTest extends KernelTestBase {
       $this->assertEquals($user->id(), $acquired['user']->id(), 'Successfully acquired correct user.');
     }
     $this->assertFalse($acquired['admin_user']);
-
 
     // Default config + BEHAVIOR_INCLUDE_PROTECTED_ROLES behavior.
     // Expected to acquire user and admin user.

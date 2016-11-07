@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\decoupled_auth\Plugin\Validation\Constraint\DecoupledAuthUserMailUnique.
- */
-
 namespace Drupal\decoupled_auth\Plugin\Validation\Constraint;
 
 use Drupal\Component\Utility\Unicode;
@@ -14,8 +9,10 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Drupal\decoupled_auth\DecoupledAuthConfig;
 
 /**
- * Checks if a user's email address is unique on the site within coupled users
- * and decoupled users of specific roles (if configured).
+ * Checks if a user's email address is unique on the site.
+ *
+ * Applies within coupled users and decoupled users of specific roles
+ * (if configured).
  *
  * @see \Drupal\Core\Validation\Plugin\Validation\Constraint\UniqueFieldValueValidator
  */
@@ -53,12 +50,13 @@ class DecoupledAuthUserMailUniqueValidator extends ConstraintValidator {
 
       // If our current user is decoupled and not in any of the selected roles,
       // we don't need to check anything as duplicates are allowed.
-      if ($entity->isDecoupled() && ($mode == DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITH_ROLE XOR array_intersect($entity->getRoles(), $selected_roles))) {
+      if ($entity->isDecoupled() && ($mode == DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITH_ROLE xor array_intersect($entity->getRoles(), $selected_roles))) {
         return;
       }
     }
-    // If our mode is \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_COUPLED and the user is decoupled, we don't need to do
-    // any further checks.
+    // If our mode is
+    // \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_COUPLED
+    // and the user is decoupled, we don't need to do any further checks.
     elseif ($mode == DecoupledAuthConfig::UNIQUE_EMAILS_MODE_COUPLED && $entity->isDecoupled()) {
       return;
     }
@@ -106,4 +104,5 @@ class DecoupledAuthUserMailUniqueValidator extends ConstraintValidator {
       ]);
     }
   }
+
 }

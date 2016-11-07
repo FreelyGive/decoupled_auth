@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\decoupled_auth\DecoupledAuthSettingsForm
- */
-
 namespace Drupal\decoupled_auth;
 
 use Drupal\Core\Form\ConfigFormBase;
@@ -80,7 +75,7 @@ class DecoupledAuthSettingsForm extends ConfigFormBase {
       '#title' => $this->t('Protected roles.'),
       '#description' => $this->t('User roles that should not be acquirable by default.'),
       '#default_value' => !empty($config->get('acquisitions.protected_roles')) ? $config->get('acquisitions.protected_roles') : [],
-      '#options' => $roles
+      '#options' => $roles,
     ];
 
     $form['unique_emails'] = [
@@ -109,10 +104,14 @@ class DecoupledAuthSettingsForm extends ConfigFormBase {
       '#multiple' => TRUE,
       '#options' => [],
       '#default_value' => $config->get('unique_emails.roles'),
-      '#states' => ['visible' => ['input[name="unique_emails[mode]"' => [
-        ['value' => DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITH_ROLE],
-        ['value' => DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITHOUT_ROLE],
-      ]]],
+      '#states' => [
+        'visible' => [
+          'input[name="unique_emails[mode]"' => [
+            ['value' => DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITH_ROLE],
+            ['value' => DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITHOUT_ROLE],
+          ],
+        ],
+      ],
     ];
     foreach (Role::loadMultiple() as $role) {
       /** @var \Drupal\user\Entity\Role $role */
@@ -131,14 +130,15 @@ class DecoupledAuthSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('decoupled_auth.settings')
-      ->set('acquisitions.behavior_first', $form_state->getValue(['acquisitions','behavior_first']))
-      ->set('acquisitions.registration', $form_state->getValue(['acquisitions','registration']))
-      ->set('acquisitions.registration_notice_demote', $form_state->getValue(['acquisitions','registration_notice_demote']))
-      ->set('acquisitions.protected_roles', $form_state->getValue(['acquisitions','protected_roles']))
-      ->set('unique_emails.mode', $form_state->getValue(['unique_emails','mode']))
-      ->set('unique_emails.roles', $form_state->getValue(['unique_emails','roles']))
+      ->set('acquisitions.behavior_first', $form_state->getValue(['acquisitions', 'behavior_first']))
+      ->set('acquisitions.registration', $form_state->getValue(['acquisitions', 'registration']))
+      ->set('acquisitions.registration_notice_demote', $form_state->getValue(['acquisitions', 'registration_notice_demote']))
+      ->set('acquisitions.protected_roles', $form_state->getValue(['acquisitions', 'protected_roles']))
+      ->set('unique_emails.mode', $form_state->getValue(['unique_emails', 'mode']))
+      ->set('unique_emails.roles', $form_state->getValue(['unique_emails', 'roles']))
       ->save();
 
     parent::submitForm($form, $form_state);
   }
+
 }

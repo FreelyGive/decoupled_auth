@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\decoupled_auth\Plugin\views\filter\Decoupled.
- */
-
 namespace Drupal\decoupled_auth\Plugin\views\filter;
 
 use Drupal\views\Plugin\views\display\DisplayPluginBase;
@@ -86,7 +81,7 @@ class Decoupled extends FilterPluginBase {
   public function query() {
     $this->ensureMyTable();
     $field = 'users_field_data.name';
-    $or =  new Condition('OR');
+    $or = new Condition('OR');
 
     if (empty($this->value) || $this->value == ['0']) {
       $or->condition($field, NULL, 'IS NOT NULL');

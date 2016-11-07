@@ -1,14 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\decoupled_auth\Kernel\UserProfileFieldTest.
- */
-
 namespace Drupal\Tests\decoupled_auth\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\decoupled_auth\Tests\DecoupledAuthUserCreationTrait;
 use Drupal\profile\Entity\Profile;
 use Drupal\profile\Entity\ProfileType;
 use Drupal\simpletest\UserCreationTrait;
@@ -95,6 +89,7 @@ class UserProfileFieldTest extends KernelTestBase {
    *   Whether the profile should be created as active.
    *
    * @return \Drupal\profile\Entity\ProfileInterface
+   *   Fully loaded profile entity.
    */
   protected function createProfile($type, UserInterface $user, $active) {
     /** @var \Drupal\profile\Entity\ProfileInterface $profile */
@@ -107,8 +102,7 @@ class UserProfileFieldTest extends KernelTestBase {
   }
 
   /**
-   * Test that the profile field gets created and deleted correctly not via
-   * config.
+   * Test that the profile field gets created and deleted correctly.
    */
   public function testFieldCreateDeleteApi() {
     $this->installProfile();
@@ -156,8 +150,7 @@ class UserProfileFieldTest extends KernelTestBase {
   }
 
   /**
-   * Test that fields get created from installing profile module with optional
-   * config.
+   * Test that fields get created from installing profile with optional config.
    */
   public function testFieldCreateEnableProfile() {
     // Enable our module with optional configuration.
@@ -212,7 +205,7 @@ class UserProfileFieldTest extends KernelTestBase {
     $user = User::load($user->id());
     $this->assertNull($user->profile_test_single->target_id, 'Test single profile has been removed from the user.');
   }
-  
+
   /**
    * Test that CRUD operations on a profile updates the appropriate field.
    */

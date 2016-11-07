@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\decoupled_auth\UserStorageSchema.
- */
-
 namespace Drupal\decoupled_auth;
 
 use Drupal\user\UserStorageSchema;

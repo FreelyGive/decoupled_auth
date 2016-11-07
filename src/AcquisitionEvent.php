@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\decoupled_auth\AcquisitionEvent.
- */
-
 namespace Drupal\decoupled_auth;
 
 use Symfony\Component\EventDispatcher\Event;
@@ -16,8 +11,7 @@ use Drupal\decoupled_auth\Entity\DecoupledAuthUser;
 class AcquisitionEvent extends Event {
 
   /**
-   * Name of the event fired prior to attempting to find a user matching the
-   * given conditions.
+   * Name of the event fired prior to attempting to find a user match.
    *
    * This event allows modules to make changes to the matched values and context
    * used for the acquisition attempt.
@@ -31,8 +25,7 @@ class AcquisitionEvent extends Event {
   const PRE = 'decoupled_auth.pre_acquire';
 
   /**
-   * Name of the event fired after attempting to find a user matching the given
-   * conditions.
+   * Name of the event fired after attempting to find a user match.
    *
    * This event allows modules to react to an acquisition success for failure.
    *
@@ -43,6 +36,7 @@ class AcquisitionEvent extends Event {
    * @var string
    */
   const POST = 'decoupled_auth.post_acquire';
+
   /**
    * The values to match on.
    *
@@ -56,7 +50,6 @@ class AcquisitionEvent extends Event {
    * @var array
    */
   protected $context;
-
 
   /**
    * The acquired user, if any.
@@ -78,6 +71,7 @@ class AcquisitionEvent extends Event {
    * Returns the values by reference.
    *
    * @return array
+   *   The values to match on.
    */
   public function &getValues() {
     return $this->values;
@@ -87,6 +81,7 @@ class AcquisitionEvent extends Event {
    * Returns the context by reference.
    *
    * @return array
+   *   The context for the acquisition.
    */
   public function &getContext() {
     return $this->context;
@@ -95,7 +90,8 @@ class AcquisitionEvent extends Event {
   /**
    * Return the name, if any, of the acquisition attempt.
    *
-   * @return string|NULL
+   * @return string|null
+   *   The acquired context name or NULL if none provided.
    */
   public function getName() {
     return $this->context['name'];
@@ -104,7 +100,8 @@ class AcquisitionEvent extends Event {
   /**
    * Returns the user, if any.
    *
-   * @return \Drupal\decoupled_auth\Entity\DecoupledAuthUser|NULL
+   * @return \Drupal\decoupled_auth\Entity\DecoupledAuthUser|null
+   *   The acquired user or NULL if none found.
    */
   public function &getUser() {
     return $this->user;

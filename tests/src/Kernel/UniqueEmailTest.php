@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\Tests\decoupled_auth\Kernel\AcquisitionApiTest.
- */
-
 namespace Drupal\Tests\decoupled_auth\Kernel;
 
 use Drupal\KernelTests\KernelTestBase;
@@ -75,7 +70,8 @@ class UniqueEmailTest extends KernelTestBase {
   }
 
   /**
-   * Test the unique email validator in
+   * Test the unique email validator.
+   *
    * \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_ALL_USERS
    * mode with no existing users.
    *
@@ -85,20 +81,21 @@ class UniqueEmailTest extends KernelTestBase {
     $this->setUniqueEmailsConfig(DecoupledAuthConfig::UNIQUE_EMAILS_MODE_ALL_USERS);
 
     // Test validating a decoupled user.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user passes validation.');
 
     // Test validating a coupled user.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Coupled user passes validation.');
   }
 
   /**
-   * Test the unique email validator in
+   * Test the unique email validator.
+   *
    * \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_ALL_USERS
    * mode with an existing decoupled user.
    *
@@ -110,20 +107,21 @@ class UniqueEmailTest extends KernelTestBase {
     $existing_user = $this->createDecoupledUser();
 
     // Test validating a decoupled user.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->email_prefix);
     $violations = $user->validate();
     $this->assertNotEmpty($violations, 'Decoupled user fails validation.');
 
     // Test validating a coupled user.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->email_prefix);
     $violations = $user->validate();
     $this->assertNotEmpty($violations, 'Coupled user fails validation.');
   }
 
   /**
-   * Test the unique email validator in
+   * Test the unique email validator.
+   *
    * \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_ALL_USERS
    * mode with an existing coupled user.
    *
@@ -135,20 +133,21 @@ class UniqueEmailTest extends KernelTestBase {
     $existing_user = $this->createUser();
 
     // Test validating a decoupled user.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->getAccountName());
     $violations = $user->validate();
     $this->assertNotEmpty($violations, 'Decoupled user fails validation.');
 
     // Test validating a coupled user.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->getAccountName());
     $violations = $user->validate();
     $this->assertNotEmpty($violations, 'Coupled user fails validation.');
   }
 
   /**
-   * Test the unique email validator in
+   * Test the unique email validator.
+   *
    * \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_COUPLED mode
    * with no existing users.
    *
@@ -158,20 +157,21 @@ class UniqueEmailTest extends KernelTestBase {
     $this->setUniqueEmailsConfig(DecoupledAuthConfig::UNIQUE_EMAILS_MODE_COUPLED);
 
     // Test validating a decoupled user.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user passes validation.');
 
     // Test validating a coupled user.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Coupled user passes validation.');
   }
 
   /**
-   * Test the unique email validator in
+   * Test the unique email validator.
+   *
    * \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_COUPLED mode
    * with an existing decoupled user.
    *
@@ -183,20 +183,21 @@ class UniqueEmailTest extends KernelTestBase {
     $existing_user = $this->createDecoupledUser();
 
     // Test validating a decoupled user.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->email_prefix);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user passes validation.');
 
     // Test validating a coupled user.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->email_prefix);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Coupled user passes validation.');
   }
 
   /**
-   * Test the unique email validator in
+   * Test the unique email validator.
+   *
    * \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_COUPLED mode
    * with an existing coupled user.
    *
@@ -208,20 +209,21 @@ class UniqueEmailTest extends KernelTestBase {
     $existing_user = $this->createUser();
 
     // Test validating a decoupled user.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->getAccountName());
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user passes validation.');
 
     // Test validating a coupled user.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->getAccountName());
     $violations = $user->validate();
     $this->assertNotEmpty($violations, 'Coupled user fails validation.');
   }
 
   /**
-   * Test the unique email validator in
+   * Test the unique email validator.
+   *
    * \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITH_ROLE
    * mode with no existing users.
    *
@@ -232,26 +234,26 @@ class UniqueEmailTest extends KernelTestBase {
     $this->setUniqueEmailsConfig(DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITH_ROLE, [$role]);
 
     // Test validating a decoupled user without the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user passes validation.');
 
     // Test validating a decoupled user with the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED);
     $user->addRole($role);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user passes validation.');
 
     // Test validating a coupled user without the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Coupled user passes validation.');
 
     // Test validating a coupled user with the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED);
     $user->addRole($role);
     $violations = $user->validate();
@@ -259,7 +261,8 @@ class UniqueEmailTest extends KernelTestBase {
   }
 
   /**
-   * Test the unique email validator in
+   * Test the unique email validator.
+   *
    * \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITH_ROLE
    * mode with an existing decoupled user with no matching roles.
    *
@@ -272,26 +275,26 @@ class UniqueEmailTest extends KernelTestBase {
     $existing_user = $this->createDecoupledUser();
 
     // Test validating a decoupled user without the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->email_prefix);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user without role passes validation.');
 
     // Test validating a decoupled user with the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->email_prefix);
     $user->addRole($role);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user with role passes validation.');
 
     // Test validating a coupled user without the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->email_prefix);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Coupled user without the role passes validation.');
 
     // Test validating a coupled user with the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->email_prefix);
     $user->addRole($role);
     $violations = $user->validate();
@@ -299,7 +302,8 @@ class UniqueEmailTest extends KernelTestBase {
   }
 
   /**
-   * Test the unique email validator in
+   * Test the unique email validator.
+   *
    * \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITH_ROLE
    * mode with an existing decoupled user with a matching roles.
    *
@@ -314,26 +318,26 @@ class UniqueEmailTest extends KernelTestBase {
     $existing_user->save();
 
     // Test validating a decoupled user without the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->email_prefix);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user without role passes validation.');
 
     // Test validating a decoupled user with the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->email_prefix);
     $user->addRole($role);
     $violations = $user->validate();
     $this->assertNotEmpty($violations, 'Decoupled user with role fails validation.');
 
     // Test validating a coupled user without the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->email_prefix);
     $violations = $user->validate();
     $this->assertNotEmpty($violations, 'Coupled user without the role fails validation.');
 
     // Test validating a coupled user with the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->email_prefix);
     $user->addRole($role);
     $violations = $user->validate();
@@ -341,7 +345,8 @@ class UniqueEmailTest extends KernelTestBase {
   }
 
   /**
-   * Test the unique email validator in
+   * Test the unique email validator.
+   *
    * \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITH_ROLE
    * mode with an existing coupled user with no matching roles.
    *
@@ -354,26 +359,26 @@ class UniqueEmailTest extends KernelTestBase {
     $existing_user = $this->createUser();
 
     // Test validating a decoupled user without the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->getAccountName());
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user without role passes validation.');
 
     // Test validating a decoupled user with the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->getAccountName());
     $user->addRole($role);
     $violations = $user->validate();
     $this->assertNotEmpty($violations, 'Decoupled user with role fails validation.');
 
     // Test validating a coupled user without the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->getAccountName());
     $violations = $user->validate();
     $this->assertNotEmpty($violations, 'Coupled user without the role fails validation.');
 
     // Test validating a coupled user with the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->getAccountName());
     $user->addRole($role);
     $violations = $user->validate();
@@ -381,7 +386,8 @@ class UniqueEmailTest extends KernelTestBase {
   }
 
   /**
-   * Test the unique email validator in
+   * Test the unique email validator.
+   *
    * \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITH_ROLE
    * mode with an existing coupled user with a matching roles.
    *
@@ -396,26 +402,26 @@ class UniqueEmailTest extends KernelTestBase {
     $existing_user->save();
 
     // Test validating a decoupled user without the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->getAccountName());
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user without role passes validation.');
 
     // Test validating a decoupled user with the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->getAccountName());
     $user->addRole($role);
     $violations = $user->validate();
     $this->assertNotEmpty($violations, 'Decoupled user with role fails validation.');
 
     // Test validating a coupled user without the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->getAccountName());
     $violations = $user->validate();
     $this->assertNotEmpty($violations, 'Coupled user without the role fails validation.');
 
     // Test validating a coupled user with the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->getAccountName());
     $user->addRole($role);
     $violations = $user->validate();
@@ -423,7 +429,8 @@ class UniqueEmailTest extends KernelTestBase {
   }
 
   /**
-   * Test the unique email validator in
+   * Test the unique email validator.
+   *
    * \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITHOUT_ROLE
    * mode with no existing users.
    *
@@ -434,26 +441,26 @@ class UniqueEmailTest extends KernelTestBase {
     $this->setUniqueEmailsConfig(DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITHOUT_ROLE, [$role]);
 
     // Test validating a decoupled user without the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user passes validation.');
 
     // Test validating a decoupled user with the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED);
     $user->addRole($role);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user passes validation.');
 
     // Test validating a coupled user without the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Coupled user passes validation.');
 
     // Test validating a coupled user with the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED);
     $user->addRole($role);
     $violations = $user->validate();
@@ -461,7 +468,8 @@ class UniqueEmailTest extends KernelTestBase {
   }
 
   /**
-   * Test the unique email validator in
+   * Test the unique email validator.
+   *
    * \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITHOUT_ROLE
    * mode with an existing decoupled user with no matching roles.
    *
@@ -474,26 +482,26 @@ class UniqueEmailTest extends KernelTestBase {
     $existing_user = $this->createDecoupledUser();
 
     // Test validating a decoupled user without the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->email_prefix);
     $violations = $user->validate();
     $this->assertNotEmpty($violations, 'Decoupled user without role fails validation.');
 
     // Test validating a decoupled user with the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->email_prefix);
     $user->addRole($role);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user with role passes validation.');
 
     // Test validating a coupled user without the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->email_prefix);
     $violations = $user->validate();
     $this->assertNotEmpty($violations, 'Coupled user without the role fails validation.');
 
     // Test validating a coupled user with the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->email_prefix);
     $user->addRole($role);
     $violations = $user->validate();
@@ -501,7 +509,8 @@ class UniqueEmailTest extends KernelTestBase {
   }
 
   /**
-   * Test the unique email validator in
+   * Test the unique email validator.
+   *
    * \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITHOUT_ROLE
    * mode with an existing decoupled user with a matching roles.
    *
@@ -516,26 +525,26 @@ class UniqueEmailTest extends KernelTestBase {
     $existing_user->save();
 
     // Test validating a decoupled user without the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->email_prefix);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user without role passes validation.');
 
     // Test validating a decoupled user with the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->email_prefix);
     $user->addRole($role);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user with role passes validation.');
 
     // Test validating a coupled user without the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->email_prefix);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Coupled user without the role passes validation.');
 
     // Test validating a coupled user with the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->email_prefix);
     $user->addRole($role);
     $violations = $user->validate();
@@ -543,7 +552,8 @@ class UniqueEmailTest extends KernelTestBase {
   }
 
   /**
-   * Test the unique email validator in
+   * Test the unique email validator.
+   *
    * \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITHOUT_ROLE
    * mode with an existing coupled user with no matching roles.
    *
@@ -556,26 +566,26 @@ class UniqueEmailTest extends KernelTestBase {
     $existing_user = $this->createUser();
 
     // Test validating a coupled user without the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->getAccountName());
     $violations = $user->validate();
     $this->assertNotEmpty($violations, 'Decoupled user without role fails validation.');
 
     // Test validating a coupled user with the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->getAccountName());
     $user->addRole($role);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user with role passes validation.');
 
     // Test validating a coupled user without the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->getAccountName());
     $violations = $user->validate();
     $this->assertNotEmpty($violations, 'Coupled user without the role fails validation.');
 
     // Test validating a coupled user with the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->getAccountName());
     $user->addRole($role);
     $violations = $user->validate();
@@ -583,7 +593,8 @@ class UniqueEmailTest extends KernelTestBase {
   }
 
   /**
-   * Test the unique email validator in
+   * Test the unique email validator.
+   *
    * \Drupal\decoupled_auth\DecoupledAuthConfig::UNIQUE_EMAILS_MODE_WITHOUT_ROLE
    * mode with an existing coupled user with a matching roles.
    *
@@ -598,26 +609,26 @@ class UniqueEmailTest extends KernelTestBase {
     $existing_user->save();
 
     // Test validating a coupled user without the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->getAccountName());
     $violations = $user->validate();
     $this->assertNotEmpty($violations, 'Decoupled user without role passes validation.');
 
     // Test validating a coupled user with the role.
-    // Expected result: No violations
+    // Expected result: No violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_DECOUPLED, $existing_user->getAccountName());
     $user->addRole($role);
     $violations = $user->validate();
     $this->assertEmpty($violations, 'Decoupled user with role passes validation.');
 
     // Test validating a coupled user without the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->getAccountName());
     $violations = $user->validate();
     $this->assertNotEmpty($violations, 'Coupled user without the role fails validation.');
 
     // Test validating a coupled user with the role.
-    // Expected result: Violations
+    // Expected result: Violations.
     $user = $this->createUnsavedUser(self::UNSAVED_USER_COUPLED, $existing_user->getAccountName());
     $user->addRole($role);
     $violations = $user->validate();

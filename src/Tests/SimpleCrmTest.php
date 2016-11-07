@@ -1,15 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\decoupled_auth\Tests\SimpleCrmTest.
- */
-
 namespace Drupal\decoupled_auth\Tests;
 
 use Drupal\simpletest\WebTestBase;
 use Drupal\profile\Tests\ProfileTestTrait;
-use Drupal\Core\File\FileSystem;
 
 /**
  * Tests CRM fields and views.
@@ -81,7 +75,7 @@ class SimpleCrmTest extends WebTestBase {
         }
       }
 
-      foreach($account->td[1]->a->attributes() as $label => $attribute) {
+      foreach ($account->td[1]->a->attributes() as $label => $attribute) {
         if ($label == 'href') {
           $href = explode('/', $attribute);
           $uid = array_pop($href);
@@ -119,8 +113,6 @@ class SimpleCrmTest extends WebTestBase {
     $result_accounts = array();
 
     foreach ($result as $account) {
-
-
       $email = (string) $account->td[1];
       $email_components = explode('@', $email);
       $name = $email_components[0];
@@ -132,7 +124,7 @@ class SimpleCrmTest extends WebTestBase {
         }
       }
 
-      foreach($account->td[5]->a->attributes() as $label => $attribute) {
+      foreach ($account->td[5]->a->attributes() as $label => $attribute) {
         if ($label == 'href') {
           $href = substr($attribute, 0, strpos($attribute, '?') - 5);
           $href = explode('/', $href);
@@ -153,7 +145,7 @@ class SimpleCrmTest extends WebTestBase {
   }
 
   /**
-   * Test People and Contact views
+   * Test People and Contact views.
    */
   public function testContactViews() {
     // Create a decoupled user to test views.

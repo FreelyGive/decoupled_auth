@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\decoupled_auth\Plugin\Validation\Constraint\UserMailRequired.
- */
-
 namespace Drupal\decoupled_auth\Plugin\Validation\Constraint;
 
 use Drupal\user\Plugin\Validation\Constraint\UserMailRequired;
@@ -30,7 +25,7 @@ class DecoupledAuthUserMailRequired extends UserMailRequired {
   public function validate($items, Constraint $constraint) {
     /** @var \Drupal\Core\Field\FieldItemListInterface $items */
     /** @var \Drupal\decoupled_auth\DecoupledAuthUserInterface $account */
-    // If this account is decoupled,
+    // If this account is decoupled.
     $account = $items->getEntity();
 
     // We only need to perform required validation if we are not decoupled.

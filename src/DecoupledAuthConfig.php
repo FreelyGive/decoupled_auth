@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\decoupled_auth\DecoupledAuthConfig
- */
-
 namespace Drupal\decoupled_auth;
 
 /**

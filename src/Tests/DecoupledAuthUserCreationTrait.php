@@ -1,17 +1,12 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\decoupled_auth\DecoupledAuthUserCreationTrait.
- */
-
 namespace Drupal\decoupled_auth\Tests;
 
 use Drupal\decoupled_auth\Entity\DecoupledAuthUser;
 use Drupal\Component\Utility\SafeMarkup;
 
 /**
- * Provides methods to create additional test users for decoupled auth tests
+ * Provides methods to create additional test users for decoupled auth tests.
  *
  * This trait is meant to be used only by test classes extending
  * \Drupal\simpletest\TestBase or Drupal\KernelTests\KernelTestBase.
@@ -24,7 +19,7 @@ trait DecoupledAuthUserCreationTrait {
    * @param string $email_prefix
    *   This is suffixed with '@example.com' for the mail and, if not decoupled,
    *   is used for the name of the user. If not given, a random name will be
-   *   generated
+   *   generated.
    *
    * @return \Drupal\decoupled_auth\Entity\DecoupledAuthUser
    *   The created user.
@@ -45,7 +40,7 @@ trait DecoupledAuthUserCreationTrait {
    * @param string $email_prefix
    *   This is suffixed with '@example.com' for the mail and, if not decoupled,
    *   is used for the name of the user. If not given, a random name will be
-   *   generated
+   *   generated.
    *
    * @return \Drupal\decoupled_auth\Entity\DecoupledAuthUser
    *   The created unsaved user.

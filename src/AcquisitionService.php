@@ -1,16 +1,14 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\decoupled_auth\AcquisitionService
- */
-
 namespace Drupal\decoupled_auth;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
+/**
+ * Provides an acquisition service for finding and acquiring users.
+ */
 class AcquisitionService implements AcquisitionServiceInterface {
 
   /**
@@ -28,8 +26,9 @@ class AcquisitionService implements AcquisitionServiceInterface {
   ];
 
   /**
-   * The failure code, if any. This is set as part of
-   * AcquisitionService::acquire(). One of the
+   * The failure code, if any.
+   *
+   * This is set as part of AcquisitionService::acquire(). One of the
    * \Drupal\decoupled_auth\AcquisitionServiceInterface::FAIL_* constants, or
    * NULL if there is no failure code.
    *
@@ -104,11 +103,9 @@ class AcquisitionService implements AcquisitionServiceInterface {
 
       // We don't exclude coupled from the query as it may have failed due to
       // multiple matches.
-
       // Re-run the find match with our new context.
       $user = $this->findMatch($values, $new_context);
     }
-
 
     // If we have a match, we are acquiring.
     if ($user) {
@@ -135,7 +132,7 @@ class AcquisitionService implements AcquisitionServiceInterface {
    * @param array $context
    *   The context we are using to find a match.
    *
-   * @return \Drupal\decoupled_auth\DecoupledAuthUserInterface|NULL
+   * @return \Drupal\decoupled_auth\DecoupledAuthUserInterface|null
    *   Return the matched user or NULL if no valid match could be found.
    */
   protected function findMatch(array $values, array &$context) {
@@ -206,7 +203,7 @@ class AcquisitionService implements AcquisitionServiceInterface {
     }
 
     // Store something helpful in $this->context.
-    $this->failCode = count($uids) ? self::FAIL_MULTIPLE_MATCHES: self::FAIL_NO_MATCHES;
+    $this->failCode = count($uids) ? self::FAIL_MULTIPLE_MATCHES : self::FAIL_NO_MATCHES;
 
     // Otherwise we have nothing to return.
     return NULL;

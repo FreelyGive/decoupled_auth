@@ -18,8 +18,17 @@ drupal_ti_ensure_module_linked
 cd $DRUPAL_TI_DRUPAL_DIR
 
 # Update composer dependencies.
+export COMPOSER_EXIT_ON_PATCH_FAILURE=1
 composer drupal-rebuild
 composer update -n --lock --verbose
+
+# Check code style using Drupal Coder review.
+composer global require "drupal/coder ^8.2"
+~/.composer/vendor/bin/phpcs --config-set installed_paths ~/.composer/vendor/drupal/coder/coder_sniffer
+cd $DRUPAL_TI_DRUPAL_DIR/modules/decoupled_auth
+~/.composer/vendor/bin/phpcs . -np --standard=Drupal --colors
+
+cd $DRUPAL_TI_DRUPAL_DIR
 
 #TEMP: Delete broken test from address module.
 rm modules/address/tests/src/Unit/Plugin/Validation/Constraint/CountryConstraintValidatorTest.php

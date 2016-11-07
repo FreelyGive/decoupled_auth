@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\decoupled_auth\UserInterface.
- */
-
 namespace Drupal\decoupled_auth;
 
 use Drupal\user\UserInterface;
@@ -20,6 +15,7 @@ interface DecoupledAuthUserInterface extends UserInterface {
    * Check whether this user is decoupled.
    *
    * @return bool
+   *   Whether this user is decoupled.
    */
   public function isDecoupled();
 
@@ -27,13 +23,15 @@ interface DecoupledAuthUserInterface extends UserInterface {
    * Set this user to the decoupled state.
    *
    * @return DecoupledAuthUserInterface
+   *   The user being decoupled.
    */
   public function decouple();
 
   /**
-   * Check whether this user is decoupled.
+   * Check whether this user is coupled.
    *
    * @return bool
+   *   Whether this use is coupled.
    */
   public function isCoupled();
 
@@ -41,6 +39,7 @@ interface DecoupledAuthUserInterface extends UserInterface {
    * Set this user to the coupled state.
    *
    * @return DecoupledAuthUserInterface
+   *   The user being coupled.
    */
   public function couple();
 
@@ -48,6 +47,7 @@ interface DecoupledAuthUserInterface extends UserInterface {
    * Calculate the decoupled state of this user.
    *
    * @return bool
+   *   The decoupled state of the user.
    */
   public function calculateDecoupled();
 

@@ -13,6 +13,9 @@
     "drupal/profile": "8.1.*",
     "drupal/address": "8.1.*"
   },
+  "require-dev": {
+    "drupal/coder": "^8.2"
+  },
   "autoload": {
     "psr-4": {
       "Drupal\\decoupled_auth\\": "src"

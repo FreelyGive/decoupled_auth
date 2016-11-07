@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\decoupled_auth\Entity\DecoupledAuthUser.
- */
-
 namespace Drupal\decoupled_auth\Entity;
 
 use Drupal\decoupled_auth\DecoupledAuthUserInterface;
@@ -28,7 +23,7 @@ class DecoupledAuthUser extends User implements DecoupledAuthUserInterface {
    * {@inheritdoc}
    */
   public static function postLoad(EntityStorageInterface $storage, array &$entities) {
-    /** @var $entities DecoupledAuthUser[] */
+    /* @var $entities DecoupledAuthUser[] */
     parent::postLoad($storage, $entities);
     foreach ($entities as $entity) {
       $entity->calculateDecoupled();

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\decoupled_auth\Plugin\views\field\Decoupled.
- */
-
 namespace Drupal\decoupled_auth\Plugin\views\field;
 
 use Drupal\views\Plugin\views\display\DisplayPluginBase;
@@ -33,6 +28,9 @@ class Decoupled extends FieldPluginBase {
     $this->additional_fields['uid'] = 'uid';
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function query() {
     $this->ensureMyTable();
     $this->addAdditionalFields();

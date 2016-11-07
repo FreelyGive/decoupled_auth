@@ -1,14 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\decoupled_auth\Tests\RegistrationTest.
- */
-
 namespace Drupal\decoupled_auth\Tests;
 
 use Drupal\simpletest\WebTestBase;
-use Drupal\decoupled_auth\Tests\DecoupledAuthUserCreationTrait;
 
 /**
  * Tests User registration with and without Acquisition.
@@ -59,7 +53,9 @@ class RegistrationTest extends WebTestBase {
    * Post user information to user register form.
    *
    * @param string $name
+   *   The username of the user.
    * @param string $mail_prefix
+   *   The mail prefix prior to the '@' of the email.
    *
    * @return array
    *   Array of information that was used to create user.
@@ -79,6 +75,7 @@ class RegistrationTest extends WebTestBase {
    *
    * @param array $property
    *   An array of a property value keyed by the property.
+   *
    * @return array
    *   An array of User entity objects indexed by their ids.
    */
@@ -92,7 +89,7 @@ class RegistrationTest extends WebTestBase {
    * Test the standard registration process when there is no existing user.
    */
   public function testNormalNone() {
-    // Set up test environment configuration,
+    // Set up test environment configuration.
     $this->disableRegistrationAcquisition();
 
     // Test registering a new user when there are no existing users.
@@ -135,11 +132,10 @@ class RegistrationTest extends WebTestBase {
   }
 
   /**
-   * Test the normal registration process when there is a single existing
-   * user.
+   * Test the normal registration process when there is a single existing user.
    */
   public function testNormalSingle() {
-    // Set up test environment configuration,
+    // Set up test environment configuration.
     $this->disableRegistrationAcquisition();
     // Allow all decoupled users to have non-unique emails.
     $this->acquisitionConfig->set('unique_emails.mode', 'none')->save();
@@ -175,8 +171,7 @@ class RegistrationTest extends WebTestBase {
   }
 
   /**
-   * Test the acquisition registration process when there is a single existing
-   * user.
+   * Test acquisition registration when there is a single existing user.
    */
   public function testAcquisitionSingle() {
     // Test registering a new user when the single existing user is decoupled.
@@ -209,11 +204,10 @@ class RegistrationTest extends WebTestBase {
   }
 
   /**
-   * Test the normal registration process when there is are multiple existing
-   * users.
+   * Test normal registration when there is are multiple existing users.
    */
   public function testNormalMultiple() {
-    // Set up test environment configuration,
+    // Set up test environment configuration.
     $this->disableRegistrationAcquisition();
     // Allow all decoupled users to have non-unique emails.
     $this->acquisitionConfig->set('unique_emails.mode', 'none')->save();
@@ -247,8 +241,7 @@ class RegistrationTest extends WebTestBase {
   }
 
   /**
-   * Test the acquisition registration process when there is are multiple
-   * existing users.
+   * Test acquisition registration when there is are multiple existing users.
    */
   public function testAcquisitionMultiple() {
     // Allow all decoupled users to have non-unique emails.
@@ -283,8 +276,10 @@ class RegistrationTest extends WebTestBase {
   }
 
   /**
-   * Test the acquisition registration process when there is are multiple
-   * existing users and we are acquiring the first.
+   * Test the acquisition registration process.
+   *
+   * In this test there is are multiple existing users and we are acquiring
+   * the first.
    */
   public function testAcquisitionMultipleFirst() {
     // Change the site config to acquire the first.
