@@ -10,6 +10,7 @@ drupal_ti_ensure_drupal
 mkdir -p "$DRUPAL_TI_DRUPAL_DIR/$DRUPAL_TI_MODULES_PATH"
 cd "$DRUPAL_TI_DRUPAL_DIR/$DRUPAL_TI_MODULES_PATH"
 git clone --branch 8.x-1.x http://git.drupal.org/project/composer_manager.git --depth 1
+git clone --branch 8.x-1.x https://github.com/amitaibu/og.git --depth 1
 php composer_manager/scripts/init.php
 
 # Ensure the module is linked into the codebase.

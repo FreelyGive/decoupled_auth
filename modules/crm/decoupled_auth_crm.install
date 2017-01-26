@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the decoupled user authentication
+ * module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function decoupled_auth_crm_install() {
+  // Make Users an OG Group
+  Drupal\og\Og::groupManager()->addGroup('user', 'user');
+
+  // Add reference field to users.
+  $settings = ['field_name' => 'crm_organisation'];
+  $field = Drupal\og\Og::createField('og_group_ref', 'user', 'user', $settings);
+
+  $field->setSetting('handler', 'decoupled_auth_user');
+  $handler_settings = [
+    'include_decoupled' => 1,
+    'filter' => [
+      'type' => 'role',
+      'role' => [
+        'crm_org' => 'crm_org',
+      ]
+    ]
+  ];
+  $field->setSetting('handler_settings', $handler_settings);
+  $field->save();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function decoupled_auth_crm_uninstall() {
+  // Remove og organisation field.
+  $field = Drupal\field\Entity\FieldConfig::load('user.user.crm_organisation');
+  $field->delete();
+}
