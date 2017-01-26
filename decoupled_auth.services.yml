@@ -3,4 +3,4 @@ services:
   decoupled_auth.acquisition:
     class: Drupal\decoupled_auth\AcquisitionService
     arguments: ['@config.factory', '@entity_type.manager', '@event_dispatcher']
-    scope: prototype
+    shared: false

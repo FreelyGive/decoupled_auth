@@ -10,8 +10,6 @@ dependencies:
   module:
     - address
     - image
-_core:
-  default_config_hash: EyH-pd46rt-PuwtD1Hi46xA4jPkLMyeF_4FxTyWujRk
 id: profile.crm_org.default
 targetEntityType: profile
 bundle: crm_org

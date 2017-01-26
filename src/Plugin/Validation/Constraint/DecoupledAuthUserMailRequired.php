@@ -22,21 +22,4 @@ use Symfony\Component\Validator\Constraint;
  *   label = @Translation("User email required", context = "Validation")
  * )
  */
-class DecoupledAuthUserMailRequired extends UserMailRequired {
-
-  /**
-   * {@inheritdoc}
-   */
-  public function validate($items, Constraint $constraint) {
-    /** @var \Drupal\Core\Field\FieldItemListInterface $items */
-    /** @var \Drupal\decoupled_auth\DecoupledAuthUserInterface $account */
-    // If this account is decoupled,
-    $account = $items->getEntity();
-
-    // We only need to perform required validation if we are not decoupled.
-    if (!$account->isDecoupled()) {
-      parent::validate($items, $constraint);
-    }
-  }
-
-}
+class DecoupledAuthUserMailRequired extends UserMailRequired {}

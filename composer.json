@@ -6,12 +6,12 @@
   "repositories": [
     {
       "type": "composer",
-      "url": "https://packagist.drupal-composer.org"
+      "url": "https://packages.drupal.org/8"
     }
   ],
   "require": {
-    "drupal/profile": "8.1.*",
-    "drupal/address": "8.1.*"
+    "drupal/profile": "1.x-dev",
+    "drupal/address": "~1.0"
   },
   "autoload": {
     "psr-4": {

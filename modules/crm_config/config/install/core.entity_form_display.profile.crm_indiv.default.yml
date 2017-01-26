@@ -13,8 +13,6 @@ dependencies:
     - address
     - datetime
     - image
-_core:
-  default_config_hash: iyXUFrh3P5xjYxH-8JSk4amkhdQtN8u5PnokKXHlJJM
 id: profile.crm_indiv.default
 targetEntityType: profile
 bundle: crm_indiv

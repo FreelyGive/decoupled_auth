@@ -6,34 +6,45 @@ dependencies:
     - field.field.profile.crm_org.crm_org_address
     - field.field.profile.crm_org.crm_org_email
     - field.field.profile.crm_org.crm_org_name
+    - image.style.thumbnail
     - profile.type.crm_org
   module:
     - address
-_core:
-  default_config_hash: 6duRgughWGwm2W_4HZsoo7AqS8fErGadEztoNiEqRMI
+    - image
 id: profile.crm_org.default
 targetEntityType: profile
 bundle: crm_org
 mode: default
 content:
+  crm_logo:
+    type: image
+    weight: 0
+    region: content
+    label: visually_hidden
+    settings:
+      image_style: thumbnail
+      image_link: ''
+    third_party_settings: {  }
   crm_org_address:
-    weight: 2
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
+    region: content
   crm_org_email:
-    weight: 1
-    label: above
+    weight: 2
+    label: inline
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
   crm_org_name:
-    weight: 0
-    label: above
+    weight: 1
+    label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-hidden:
-  crm_logo: true
+    region: content
+hidden: {  }

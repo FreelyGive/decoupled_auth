@@ -8,20 +8,63 @@ dependencies:
     - field.field.profile.crm_indiv.crm_gender
     - field.field.profile.crm_indiv.crm_name
     - field.field.profile.crm_indiv.crm_photo
+    - image.style.thumbnail
     - profile.type.crm_indiv
   module:
+    - address
+    - datetime
     - image
-_core:
-  default_config_hash: oVteP6aET1VrVUyToPz7ML_xzTatXsKiY95vOsJFRg4
+    - options
 id: profile.crm_indiv.default
 targetEntityType: profile
 bundle: crm_indiv
 mode: default
-content: {  }
-hidden:
-  crm_address: true
-  crm_dob: true
-  crm_email: true
-  crm_gender: true
-  crm_name: true
-  crm_photo: true
+content:
+  crm_address:
+    type: address_default
+    weight: 3
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  crm_dob:
+    type: datetime_default
+    weight: 5
+    region: content
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: html_date
+    third_party_settings: {  }
+  crm_email:
+    type: basic_string
+    weight: 2
+    region: content
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+  crm_gender:
+    type: list_default
+    weight: 4
+    region: content
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+  crm_name:
+    type: string
+    weight: 1
+    region: content
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  crm_photo:
+    type: image
+    weight: 0
+    region: content
+    label: visually_hidden
+    settings:
+      image_style: thumbnail
+      image_link: ''
+    third_party_settings: {  }
+hidden: {  }
