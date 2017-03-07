@@ -248,7 +248,12 @@ function decoupled_auth_profile_update(ProfileInterface $entity) {
  * Implements hook_ENTITY_TYPE_delete() for profile.
  */
 function decoupled_auth_profile_delete(ProfileInterface $entity) {
-  $entity->getOwner()->updateProfileFields([$entity->bundle()]);
+  // As we may be deleting in response to a deleted user, check the owner exists
+  // before attempting to update the profile fields.
+  $owner = $entity->getOwner();
+  if ($owner) {
+    $owner->updateProfileFields([$entity->bundle()]);
+  }
 }
 
 /**
