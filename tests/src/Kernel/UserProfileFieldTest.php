@@ -207,6 +207,30 @@ class UserProfileFieldTest extends KernelTestBase {
   }
 
   /**
+   * Test that the delete operation on a profile via a user deletion.
+   */
+  public function testFieldDeleteUser() {
+    $this->installProfile();
+    $this->enableModules(['decoupled_auth_profile_test']);
+    $this->installConfig(['decoupled_auth_profile_test']);
+
+    // Create our user.
+    $user = $this->createUser();
+
+    // Create the profile.
+    $profile = $this->createProfile('test_single', $user, TURE);
+
+    // Check that the field has been filled out correctly.
+    $user = User::load($user->id());
+    $this->assertEquals($profile->id(), $user->profile_test_single->target_id, 'Test single profile has been stored on the user.');
+    $this->assertInstanceOf(get_class($profile), $user->profile_test_single->entity, 'Test single profile is accessible from the user.');
+    $this->assertEquals($profile->test_field->value, $user->profile_test_single->entity->test_field->value, 'Test single profile test field matches.');
+
+    // Delete the user.
+    $user->delete();
+  }
+
+  /**
    * Test that CRUD operations on a profile updates the appropriate field.
    */
   public function testFieldPopulationMultiple() {
