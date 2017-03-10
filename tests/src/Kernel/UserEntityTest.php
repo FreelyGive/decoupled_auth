@@ -6,6 +6,7 @@ use Drupal\KernelTests\KernelTestBase;
 use Drupal\decoupled_auth\Entity\DecoupledAuthUser;
 use Drupal\decoupled_auth\Tests\DecoupledAuthUserCreationTrait;
 use Drupal\simpletest\UserCreationTrait;
+use Drupal\user\Entity\User;
 
 /**
  * Tests the user entity class and modifications made by decoupled auth.
@@ -188,4 +189,48 @@ class UserEntityTest extends KernelTestBase {
     $this->assertTrue(in_array('The email address %value is already taken.', $messages));
   }
 
+  /**
+   * Tests state getters for users.
+   */
+  public function testStateGetters() {
+    // Create a coupled user.
+    $user = $this->createUnsavedUser(FALSE);
+
+    $this->assertTrue($user->isCoupled());
+    $this->assertFalse($user->isDecoupled());
+    $this->assertTrue($user->isAuthenticated());
+    $this->assertTrue($user->isAnonymous());
+
+    // Save the user.
+    $user->save();
+
+    $this->assertTrue($user->isCoupled());
+    $this->assertFalse($user->isDecoupled());
+    $this->assertTrue($user->isAuthenticated());
+    $this->assertFalse($user->isAnonymous());
+
+    // Create a decoupled user.
+    $user = $this->createUnsavedUser(TRUE);
+
+    $this->assertFalse($user->isCoupled());
+    $this->assertTrue($user->isDecoupled());
+    $this->assertFalse($user->isAuthenticated());
+    $this->assertTrue($user->isAnonymous());
+
+    // Save the user.
+    $user->save();
+
+    $this->assertFalse($user->isCoupled());
+    $this->assertTrue($user->isDecoupled());
+    $this->assertFalse($user->isAuthenticated());
+    $this->assertFalse($user->isAnonymous());
+
+    // Get the anonymous user.
+    $user = User::getAnonymousUser();
+
+    $this->assertFalse($user->isCoupled());
+    $this->assertTrue($user->isDecoupled());
+    $this->assertFalse($user->isAuthenticated());
+    $this->assertTrue($user->isAnonymous());
+  }
 }
