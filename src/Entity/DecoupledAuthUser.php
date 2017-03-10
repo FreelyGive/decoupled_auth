@@ -6,6 +6,7 @@ use Drupal\decoupled_auth\DecoupledAuthUserInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\Entity\User;
+use Drupal\user\RoleInterface;
 
 /**
  * Defines the decoupled user authentication user entity class.
@@ -68,6 +69,33 @@ class DecoupledAuthUser extends User implements DecoupledAuthUserInterface {
     $this->pass = NULL;
 
     return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isAuthenticated() {
+    // Only coupled users are authenticated.
+    return $this->isCoupled();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRoles($exclude_locked_roles = FALSE) {
+    $roles = parent::getRoles(TRUE);
+
+    // Add the authenticated/anonymous roles.
+    if (!$exclude_locked_roles) {
+      if ($this->isAuthenticated()) {
+        $roles[] = RoleInterface::AUTHENTICATED_ID;
+      }
+      elseif ($this->isAnonymous()) {
+        $roles[] = RoleInterface::ANONYMOUS_ID;
+      }
+    }
+
+    return $roles;
   }
 
   /**
