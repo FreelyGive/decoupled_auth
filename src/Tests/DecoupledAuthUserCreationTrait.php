@@ -58,7 +58,7 @@ trait DecoupledAuthUserCreationTrait {
       'name' => $decoupled ? NULL : $email_prefix,
       'status' => 1,
     ]);
-    !$decoupled ?: $user->decouple();
+    $user->calculateDecoupled();
 
     // Set the given name as a property so it can be accessed when the user is
     // decoupled.
