@@ -43,7 +43,7 @@ class DecoupledAuthUser extends User implements DecoupledAuthUserInterface {
    * {@inheritdoc}
    */
   public function calculateDecoupled() {
-    $this->decoupled = $this->name->value === NULL;
+    $this->decoupled = $this->name->value === NULL || $this->id() === 0;
   }
 
   /**
