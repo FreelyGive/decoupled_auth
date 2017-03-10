@@ -210,6 +210,7 @@ class UserProfileFieldTest extends KernelTestBase {
    * Test that the delete operation on a profile via a user deletion.
    */
   public function testFieldDeleteUser() {
+    $this->installSchema('user', 'users_data');
     $this->installProfile();
     $this->enableModules(['decoupled_auth_profile_test']);
     $this->installConfig(['decoupled_auth_profile_test']);
@@ -218,7 +219,7 @@ class UserProfileFieldTest extends KernelTestBase {
     $user = $this->createUser();
 
     // Create the profile.
-    $profile = $this->createProfile('test_single', $user, TURE);
+    $profile = $this->createProfile('test_single', $user, TRUE);
 
     // Check that the field has been filled out correctly.
     $user = User::load($user->id());
