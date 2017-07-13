@@ -178,7 +178,7 @@ function decoupled_auth_form_process_password_confirm($element) {
  * Implements hook_preprocess_HOOK() for form_element.
  */
 function decoupled_auth_preprocess_form_element(&$variables) {
-  if ($variables['element']['#type'] == 'password_confirm') {
+  if (isset($variables['element']['#type']) && $variables['element']['#type'] == 'password_confirm') {
     if (isset($variables['element']['#attributes']['data-drupal-states'])) {
       $variables['attributes']['data-drupal-states'] = $variables['element']['#attributes']['data-drupal-states'];
     }
