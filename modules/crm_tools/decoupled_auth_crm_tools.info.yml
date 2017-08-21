@@ -1,0 +1,8 @@
+name: Simple CRM Tools
+description: "Tools for building CRM modules."
+core: 8.x
+type: module
+package: Tool
+
+dependencies:
+  - decoupled_auth
