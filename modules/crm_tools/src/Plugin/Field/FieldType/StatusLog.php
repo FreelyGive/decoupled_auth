@@ -18,7 +18,7 @@ use Drupal\Core\TypedData\DataDefinition;
  *   label = @Translation("Status log"),
  *   description = @Translation("Logs changes to a status"),
  *   default_widget = "string_textfield",
- *   default_formatter = "string"
+ *   default_formatter = "status_log_list"
  * )
  */
 class StatusLog extends FieldItemBase {
