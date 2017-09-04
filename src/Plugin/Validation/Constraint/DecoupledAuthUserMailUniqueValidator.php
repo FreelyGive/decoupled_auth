@@ -73,7 +73,7 @@ class DecoupledAuthUserMailUniqueValidator extends ConstraintValidator {
         ->exists('name')
         ->notExists('roles');
       if (!empty($roles)) {
-        $condition->condition('roles', $roles);
+        $condition->condition('roles', $roles, 'IN');
       }
       $query->condition($condition);
     }
