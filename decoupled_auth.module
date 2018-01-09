@@ -203,10 +203,8 @@ function decoupled_auth_view_insert(EntityInterface $entity) {
  */
 function decoupled_auth_user_insert(UserInterface $account) {
   /* @var \Drupal\decoupled_auth\DecoupledAuthUserInterface $account */
-  if (\Drupal::moduleHandler()->moduleExists('email_registration') && function_exists('email_registration_user_insert')) {
-    if ($account->isCoupled()) {
-      email_registration_user_insert($account);
-    }
+  if ($account->isCoupled() && function_exists('email_registration_user_insert')) {
+    email_registration_user_insert($account);
   }
 }
 
@@ -217,12 +215,10 @@ function decoupled_auth_user_insert(UserInterface $account) {
  */
 function decoupled_auth_user_update(UserInterface $account) {
   /* @var \Drupal\decoupled_auth\DecoupledAuthUserInterface $account */
-  if (\Drupal::moduleHandler()->moduleExists('email_registration') && function_exists('email_registration_user_insert')) {
-    if (!empty($original = $account->original)) {
-      /* @var \Drupal\decoupled_auth\DecoupledAuthUserInterface $original */
-      if ($account->isCoupled() && $original->isDecoupled()) {
-        email_registration_user_insert($account);
-      }
+  if (!empty($original = $account->original)) {
+    /* @var \Drupal\decoupled_auth\DecoupledAuthUserInterface $original */
+    if ($account->isCoupled() && $original->isDecoupled() && function_exists('email_registration_user_insert')) {
+      email_registration_user_insert($account);
     }
   }
 }
@@ -237,9 +233,13 @@ function decoupled_auth_module_implements_alter(&$implementations, $hook) {
     unset($implementations['profile']);
   }
 
-  if (\Drupal::moduleHandler()->moduleExists('email_registration')) {
-    if ($hook == 'user_insert' && isset($implementations['email_registration'])) {
+  // Swap out hook_user_insert if email registration module is enabled.
+  if (in_array($hook, ['user_insert', 'user_update'])) {
+    if (\Drupal::moduleHandler()->moduleExists('email_registration')) {
       unset($implementations['email_registration']);
+    }
+    else {
+      unset($implementations['decoupled_auth']);
     }
   }
 }
