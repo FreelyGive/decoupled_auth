@@ -214,6 +214,9 @@ function decoupled_auth_user_insert(UserInterface $account) {
  * Trigger email registration if needed.
  */
 function decoupled_auth_user_update(UserInterface $account) {
+  // @todo Remove when https://www.drupal.org/project/email_registration/issues/2935622 is fixed.
+  $account->original = \Drupal::entityTypeManager()->getStorage('user')->loadUnchanged($account->id());
+
   /* @var \Drupal\decoupled_auth\DecoupledAuthUserInterface $account */
   if (!empty($original = $account->original)) {
     /* @var \Drupal\decoupled_auth\DecoupledAuthUserInterface $original */
