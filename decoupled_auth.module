@@ -199,7 +199,10 @@ function decoupled_auth_view_insert(EntityInterface $entity) {
 /**
  * Implements hook_ENTITY_TYPE_insert() for user.
  *
- * Trigger email registration if needed.
+ * Wrap around email_registration_user_insert() so we only trigger it for users
+ * that are coupled. Otherwise all users become coupled.
+ *
+ * @see \decoupled_auth_module_implements_alter()
  */
 function decoupled_auth_user_insert(UserInterface $account) {
   /* @var \Drupal\decoupled_auth\DecoupledAuthUserInterface $account */
@@ -211,7 +214,10 @@ function decoupled_auth_user_insert(UserInterface $account) {
 /**
  * Implements hook_ENTITY_TYPE_update() for user.
  *
- * Trigger email registration if needed.
+ * Wrap around email_registration_user_insert(), triggering when a user moves
+ * from decoupled to coupled to ensure a username is set.
+ *
+ * @see \decoupled_auth_module_implements_alter()
  */
 function decoupled_auth_user_update(UserInterface $account) {
   // @todo Remove when https://www.drupal.org/project/email_registration/issues/2935622 is fixed.
@@ -236,7 +242,9 @@ function decoupled_auth_module_implements_alter(&$implementations, $hook) {
     unset($implementations['profile']);
   }
 
-  // Swap out hook_user_insert if email registration module is enabled.
+  // Swap out hook_user_insert if email registration module is enabled. This is
+  // to deal with email_registration's lack of knowledge of decoupled users,
+  // which results in them always becoming coupled.
   if (in_array($hook, ['user_insert', 'user_update'])) {
     if (\Drupal::moduleHandler()->moduleExists('email_registration')) {
       unset($implementations['email_registration']);
