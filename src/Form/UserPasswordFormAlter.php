@@ -172,7 +172,7 @@ class UserPasswordFormAlter implements ContainerInjectionInterface {
    * @return false|int
    *   The position of the handler, or FALSE if it did not exist.
    */
-  protected function replaceHandler(array &$handlers, $needle, $replacement) {
+  protected function replaceHandler(array &$handlers, callable $needle, callable $replacement) {
     $pos = array_search($needle, $handlers);
     if ($pos !== FALSE) {
       $handlers[$pos] = $replacement;

@@ -5,7 +5,7 @@ namespace Drupal\Tests\decoupled_auth\Functional;
 use Drupal\Core\Extension\MissingDependencyException;
 use Drupal\Core\Test\AssertMailTrait;
 use Drupal\decoupled_auth\Tests\DecoupledAuthUserCreationTrait;
-use \Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\BrowserTestBase;
 
 /**
  * Tests the user password reset form for decoupled users.
