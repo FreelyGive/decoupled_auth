@@ -15,6 +15,7 @@ use Drupal\profile\Entity\ProfileInterface;
 use Drupal\profile\Entity\ProfileTypeInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\UserInterface;
+use Drupal\decoupled_auth\Form\UserPasswordFormAlter;
 
 /**
  * Implements hook_entity_type_build().
@@ -253,6 +254,13 @@ function decoupled_auth_module_implements_alter(&$implementations, $hook) {
       unset($implementations['decoupled_auth']);
     }
   }
+
+  // Make sure our user alters run last.
+  if ($hook == 'form_alter' && isset($implementations['decoupled_auth'])) {
+    $group = $implementations['decoupled_auth'];
+    unset($implementations['decoupled_auth']);
+    $implementations['decoupled_auth'] = $group;
+  }
 }
 
 /**
@@ -333,4 +341,12 @@ function decoupled_auth_profile_type_delete(ProfileTypeInterface $entity) {
   if (isset($definitions[$name])) {
     Drupal::service('field_storage_definition.listener')->onFieldStorageDefinitionDelete($definitions[$name]);
   }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for user_pass.
+ */
+function decoupled_auth_form_user_pass_alter(&$form, FormStateInterface $form_state, $form_id) {
+  \Drupal::classResolver()->getInstanceFromDefinition(UserPasswordFormAlter::class)
+    ->alter($form, $form_state);
 }
