@@ -41,23 +41,27 @@ trait DecoupledAuthUserCreationTrait {
    *   This is suffixed with '@example.com' for the mail and, if not decoupled,
    *   is used for the name of the user. If not given, a random name will be
    *   generated.
+   * @param array $values
+   *   An array of additional values to set. status will be set to 1 if not
+   *   explicitly given.
    *
    * @return \Drupal\decoupled_auth\Entity\DecoupledAuthUser
    *   The created unsaved user.
    */
-  protected function createUnsavedUser($decoupled, $email_prefix = NULL) {
+  protected function createUnsavedUser($decoupled, $email_prefix = NULL, array $values = []) {
     // Generate a random name if we don't have one.
     if (!$email_prefix) {
       $email_prefix = $this->randomMachineName();
     }
 
     // Create and save our user.
-    /** @var \Drupal\decoupled_auth\Entity\DecoupledAuthUser $user */
-    $user = DecoupledAuthUser::create([
-      'mail' => $email_prefix . '@example.com',
-      'name' => $decoupled ? NULL : $email_prefix,
+    $values += [
       'status' => 1,
-    ]);
+    ];
+    $values['mail'] = $email_prefix . '@example.com';
+    $values['name'] = $decoupled ? NULL : $email_prefix;
+    /** @var \Drupal\decoupled_auth\Entity\DecoupledAuthUser $user */
+    $user = DecoupledAuthUser::create($values);
 
     // Set the given name as a property so it can be accessed when the user is
     // decoupled.

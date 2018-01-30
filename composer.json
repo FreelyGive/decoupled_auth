@@ -9,7 +9,8 @@
     "drupal/address": "~1.0"
   },
   "require-dev": {
-    "drupal/coder": "^8.2"
+    "drupal/coder": "^8.2",
+    "drupal/user_registrationpassword": "~1.0-alpha2"
   },
   "autoload": {
     "psr-4": {
@@ -19,6 +20,13 @@
   "autoload-dev": {
     "psr-4": {
       "Drupal\\Tests\\decoupled_auth\\": "tests/src"
+    }
+  },
+  "extra": {
+    "patches": {
+      "drupal/user_registrationpassword": {
+        "#2929399: Password reset uses wrong mailkey": "https://www.drupal.org/files/issues/user_registrationpassword-fix-wrong-mailkey.patch"
+      }
     }
   }
 }
