@@ -10,7 +10,8 @@
   },
   "require-dev": {
     "drupal/coder": "^8.2",
-    "drupal/user_registrationpassword": "~1.0-alpha2"
+    "drupal/user_registrationpassword": "~1.0-alpha2",
+    "drupal/email_registration": "1.0-rc5"
   },
   "autoload": {
     "psr-4": {
