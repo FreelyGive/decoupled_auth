@@ -21,5 +21,12 @@
     "psr-4": {
       "Drupal\\Tests\\decoupled_auth\\": "tests/src"
     }
+  },
+  "extra": {
+    "patches": {
+      "drupal/user_registrationpassword": {
+        "#2929399: Password reset uses wrong mailkey": "https://www.drupal.org/files/issues/user_registrationpassword-fix-wrong-mailkey.patch"
+      }
+    }
   }
 }

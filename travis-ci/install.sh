@@ -25,4 +25,3 @@ composer config extra.enable-patching true
 # Now require decoupled_auth which will pull itself from the paths.
 echo "# Requiring decoupled_auth"
 composer require drupal/decoupled_auth dev-master
-composer require drupal/user_registrationpassword ~1.0-alpha2
