@@ -26,6 +26,7 @@ class UserPasswordFormCodeHashTest extends UnitTestCase {
     // Find user_registrationpassword.module - assume it will be next to
     // decoupled_auth.
     include __DIR__ . '/../../../../user_registrationpassword/user_registrationpassword.module';
+    print_r($_ENV);
     $this->assertCodeMatches('094c38cbafc20a54c8131a31d79ef1a5', '_user_registrationpassword_user_pass_validate', 'Core validation handler matches');
   }
 

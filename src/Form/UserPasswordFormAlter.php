@@ -78,18 +78,20 @@ class UserPasswordFormAlter implements ContainerInjectionInterface {
     $name = trim($form_state->getValue('name'));
 
     // Get our base query.
-    $query = $this->userStorage->getQuery()
+    $base_query = $this->userStorage->getQuery()
       ->accessCheck(FALSE)
       ->range(0, 1);
 
     // Try to load by email.
-    $users = (clone $query)
+    $query = clone $base_query;
+    $users = $query
       ->condition('mail', $name)
       ->exists('name')
       ->execute();
     if (empty($users)) {
       // No success, try to load by name.
-      $users = (clone $query)
+      $query = clone $base_query;
+      $users = $query
         ->condition('name', $name)
         ->execute();
     }

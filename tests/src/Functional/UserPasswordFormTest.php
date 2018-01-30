@@ -179,10 +179,10 @@ class UserPasswordFormTest extends BrowserTestBase {
     $data['only-coupled-blocked']['expected_url'] = 'user/registrationpassword';
 
     $data['decoupled-coupled-blocked-accessed'] = $data['decoupled-coupled-blocked'];
-    $data['decoupled-coupled-blocked-accessed']['users'][0]['values']['login'] = 1;
+    $data['decoupled-coupled-blocked-accessed']['users'][1]['values']['login'] = 1;
 
     $data['decoupled-coupled-blocked-logged-in'] = $data['decoupled-coupled-blocked'];
-    $data['decoupled-coupled-blocked-logged-in']['users'][0]['values']['access'] = 1;
+    $data['decoupled-coupled-blocked-logged-in']['users'][1]['values']['access'] = 1;
 
     $data['decoupled-coupled-blocked']['expected_message'] = 'Status message Further instructions have been sent to your email address.';
     $data['decoupled-coupled-blocked']['expected_user_key'] = 1;
