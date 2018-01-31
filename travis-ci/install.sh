@@ -26,7 +26,6 @@ composer config extra.enable-patching true
 composer require wikimedia/composer-merge-plugin --no-update
 php -r "\$data = json_decode(file_get_contents('composer.json'));\$data->extra->{'merge-plugin'}->require = ['"$TRAVIS_BUILD_DIR"/composer.json'];file_put_contents('composer.json', json_encode(\$data));"
 
-
 # Now require decoupled_auth which will pull itself from the paths.
 echo "# Requiring decoupled_auth"
 composer require drupal/decoupled_auth dev-master
