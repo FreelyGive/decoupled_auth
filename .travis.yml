@@ -21,6 +21,7 @@ env:
     # DRUPAL_TI Testing.
     - SIMPLETEST_DB="mysql://root:@localhost/drupal_travis_db"
     - SIMPLETEST_BASE_URL="http://localhost:8888"
+    - phpenv config-add travis.php.ini
 
   matrix:
     # Latest stable release
@@ -44,6 +45,7 @@ before_install:
   - git config --global github.accesstoken $GITHUB_OAUTH_TOKEN
   # Track our general build directory.
   - export DRUPAL_BUILD_ROOT="$(dirname "$TRAVIS_BUILD_DIR")"
+  - phpenv config-add travis-ci/travis.php.ini  
 
 install:
   - ./travis-ci/install.sh
