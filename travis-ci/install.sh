@@ -22,6 +22,11 @@ composer config repositories.0 path $TRAVIS_BUILD_DIR
 composer config repositories.1 composer https://packages.drupal.org/8
 composer config extra.enable-patching true
 
+# Merge dev dependencies from decoupled_auth.
+composer require wikimedia/composer-merge-plugin --no-update
+php -r "$data = json_decode(file_get_contents('composer.json'));$data->extra->{'merge-plugin'}->require = ['"$TRAVIS_BUILD_DIR"/composer.json'];file_put_contents('composer.json', json_encode($data));"
+
+
 # Now require decoupled_auth which will pull itself from the paths.
 echo "# Requiring decoupled_auth"
 composer require drupal/decoupled_auth dev-master
