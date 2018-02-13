@@ -24,6 +24,7 @@ class DecoupledAuthUserViewsData extends EntityViewsData {
       if (isset($data[$table_key][$field_key])) {
         $data[$table_key][$field_key]['relationship']['label'] = $this->t('Profile (@bundle)', ['@bundle' => $profile_type->label()]);
         $data[$table_key][$field_key]['relationship']['title'] = $this->t('Profile (@bundle)', ['@bundle' => $profile_type->label()]);
+        $data[$table_key][$field_key]['relationship']['help'] = $this->t('Reference to the @bundle profile of a user.', ['@bundle' => $profile_type->id()]);
       }
     }
 
