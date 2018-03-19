@@ -3,9 +3,10 @@ status: true
 dependencies:
   module:
     - decoupled_auth
+    - taxonomy
     - user
 _core:
-  default_config_hash: U4OYE2sjte6pFwg6qgu-gb0_tiGyFHpFlpqj0tyn4Yw
+  default_config_hash: qt6M5fdWrgEXkwOW699OIBj5ASUM1K4gFFxe55Fsw5E
 id: simple_crm_users
 label: 'Simple CRM Users'
 module: views
@@ -342,8 +343,20 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          type: separator
+          click_sort_column: target_id
+          type: entity_reference_rss_category
+          settings:
+            link: 1
+          group_column: target_id
+          group_columns: {  }
+          group_rows: 1
+          delta_limit: '0'
+          delta_offset: '0'
+          delta_reversed: 0
+          delta_first_last: 0
+          multi_type: separator
           separator: ', '
+          field_api_classes: 0
           plugin_id: user_roles
         decoupled:
           id: decoupled
