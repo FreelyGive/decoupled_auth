@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Simple implementation of Decoupled User Authentication Tools for CRM.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\ContentEntityBase;
+
+/**
+ * Implements hook_entity_presave().
+ *
+ * Update status log fields.
+ */
+function decoupled_auth_crm_tools_entity_presave(EntityInterface $entity) {
+  if (!$entity instanceof ContentEntityBase) {
+    return;
+  }
+
+  // Check for status log fields.
+  foreach ($entity->getFieldDefinitions() as $field_name => $definition) {
+    /* @var \Drupal\Core\Field\FieldDefinitionInterface $definition */
+    if ($definition->getType() == 'status_log') {
+      $source_field = $definition->getFieldStorageDefinition()->getSetting('source_field');
+
+      $value = $entity->{$source_field}->value;
+      $original_value = $entity->original->{$source_field}->value;
+      if ($value !== $original_value) {
+        $values = [
+          'value' => $value,
+          'previous' => $original_value,
+          'uid' => \Drupal::currentUser()->id(),
+          'timestamp' => \Drupal::time()->getRequestTime(),
+        ];
+        $entity->{$field_name}->appendItem($values);
+      }
+    }
+  }
+}
